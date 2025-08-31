@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mochii's Studio Files</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Mochii's Studio Files</h1>
+  <div class="grid" id="posts"></div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title"></h2>
+        <span class="close-btn" id="closeModal">&times;</span>
+      </div>
+      <div class="screenshots" id="modal-screenshots"></div>
+      <p id="modal-desc"></p>
+      <a id="modal-download" class="download-btn" href="#" download>Download</a>
+    </div>
+  </div>
+
+  <!-- Image Zoom Modal -->
+  <div id="img-modal" class="img-modal">
+    <span id="close-img-modal" class="close-img">&times;</span>
+    <img id="img-modal-content" class="img-modal-content">
+  </div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-left">
+    <p>Created by @tiritatk ❤️</p>
+  </div>
+  <div class="footer-right">
+    <!-- Iconos de donación -->
+    <a href="https://www.blockchain.com/explorer/addresses/btc/bc1qmywa8w2sceyxx6fzrrw46zd5wan6wjanxm9avn" target="_blank" class="donation-icon">
+      <img src="https://raw.githubusercontent.com/Tiritatk/mochiistuff/refs/heads/main/images/btc.png" alt="Donar 1">
+    </a>
+    <a href="https://www.blockchain.com/explorer/addresses/eth/0x78542c95736275447AbC858FACF3F1049CBa677A" target="_blank" class="donation-icon">
+      <img src="https://raw.githubusercontent.com/Tiritatk/mochiistuff/refs/heads/main/images/eth.png" alt="Donar 2">
+    </a>
+    <a href="https://ko-fi.com/tiritatk" target="_blank" class="donation-icon">
+      <img src="https://raw.githubusercontent.com/Tiritatk/mochiistuff/refs/heads/main/images/kofi.png" alt="Donar 3">
+    </a>
+  </div>
+</footer>
+
+
+  <script>
+const data = [
+  {
+    title: "Project Comfort: City v2.8.0",
+    shortDesc: "Credits: https://discord.gg/GPSPFFd2eN", // Descripción corta (fuera)
+    longDesc: "This is a very complete condo game with a lot of features: 200+ Unique Animations with Sync, Cum and Milk options! First Person Mode, Highly customizable morphs, TP to different locations in the map, Customizable Bot to test animations alone, You can attach a leash to another player, Custom time changer...‎ ‎ ‎ ‎ ‎ ‎ ‎ All Credits to Project Comfort", // Descripción larga (dentro)
+    cover: "https://raw.githubusercontent.com/Tiritatk/mochiistuff/refs/heads/main/images/Project%20Comfort%3A%20City/Screenshot%202025-08-31%20141037.png",
+    screenshots: [
+      "https://raw.githubusercontent.com/Tiritatk/mochiistuff/refs/heads/main/images/Project%20Comfort%3A%20City/Screenshot%202025-08-31%20142519.png",
+      "https://raw.githubusercontent.com/Tiritatk/mochiistuff/refs/heads/main/images/Project%20Comfort%3A%20City/Screenshot%202025-08-31%20142533.png",
+      "https://raw.githubusercontent.com/Tiritatk/mochiistuff/refs/heads/main/images/Project%20Comfort%3A%20City/Screenshot%202025-08-31%20142621.png",
+      "https://raw.githubusercontent.com/Tiritatk/mochiistuff/refs/heads/main/images/Project%20Comfort%3A%20City/0831%20(1).gif"
+    ],
+    file: "https://link-hub.net/1390970/AInxYqCCPlTh"
+  },
+  {
+    title: "Coming soon...",
+    shortDesc: "Coming soon...",
+    longDesc: "Coming soon...",
+    cover: "https://silkpinturas.com/wp-content/uploads/2021/05/898d8d.jpg",
+    screenshots: ["", ""],
+    file: "#"
+  }
+];
+
+
+    const postsContainer = document.getElementById('posts');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalScreenshots = document.getElementById('modal-screenshots');
+    const modalDownload = document.getElementById('modal-download');
+    const closeModal = document.getElementById('closeModal');
+
+    const imgModal = document.getElementById('img-modal');
+    const imgModalContent = document.getElementById('img-modal-content');
+    const closeImgModal = document.getElementById('close-img-modal');
+
+    function renderPosts() {
+      postsContainer.innerHTML = '';
+      data.forEach(post => {
+        const card = document.createElement('div');
+        card.className = 'card';
+card.innerHTML = `
+  <img src="${post.cover}" alt="${post.title}">
+  <div class="card-content">
+    <h2>${post.title}</h2>
+    <p>${post.shortDesc}</p> <!-- Descripción corta -->
+  </div>
+`;
+        card.addEventListener('click', () => openModal(post));
+        postsContainer.appendChild(card);
+      });
+    }
+
+    function openModal(post) {
+      modalTitle.textContent = post.title;
+modalDesc.textContent = post.longDesc; // Descripción larga
+      modalScreenshots.innerHTML = '';
+      post.screenshots.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => {
+          imgModalContent.src = src;
+          imgModal.classList.add('active');
+        });
+        modalScreenshots.appendChild(img);
+      });
+      modalDownload.href = post.file;
+      modal.classList.add('active');
+    }
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    window.addEventListener('click', e => {
+      if (e.target === modal) modal.classList.remove('active');
+      if (e.target === imgModal) imgModal.classList.remove('active');
+    });
+
+    closeImgModal.addEventListener('click', () => {
+      imgModal.classList.remove('active');
+    });
+
+    renderPosts();
+
+  </script>
+</body>
+</html>

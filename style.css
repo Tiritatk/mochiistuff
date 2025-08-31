@@ -1,0 +1,231 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:'Noto Sans', sans-serif;
+}
+
+body {
+  background: #15151b;
+  color: #f5f5f5;
+  padding: 3rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.card {
+  background: #0f0f13;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover { 
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+.card-content h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-content p {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 50;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: #1c1c1c;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 800px;
+  width: 100%;
+  animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.close-btn {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #888;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #fff;
+}
+
+.screenshots {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto; /* permite scroll horizontal */
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  position: relative;
+}
+
+.screenshots img {
+  height: 150px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  /* quitar overflow: hidden del contenedor */
+}
+
+.screenshots img:hover {
+  transform: scale(1.05); /* pequeño zoom */
+  position: relative;      /* asegurar que salga sobre los demás */
+  z-index: 10;
+}
+
+
+.download-btn {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s;
+  margin-top: 1rem;
+}
+
+.download-btn:hover {
+  background: #1e40af;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 1rem;
+  border-top: 1px solid #222;
+  color: #aaa;
+  font-size: 0.95rem;
+  margin-top: auto;
+}
+
+.donation-icon {
+  text-decoration: none; /* quita el subrayado del enlace */
+}
+
+.donation-icon img {
+  margin-top: 1rem;
+  width: 40px;       /* ancho fijo */
+  height: 40px;      /* alto fijo */
+  border-radius: 50%; /* hace la imagen circular */
+  object-fit: cover;  /* recorta la imagen si no es cuadrada */
+}
+
+
+.img-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.img-modal.active {
+  display: flex;
+  opacity: 1;
+}
+
+.img-modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.img-modal.active .img-modal-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.close-img {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+  .card img { height: 140px; }
+  .screenshots img { height: 110px; }
+  .modal-content { padding: 1rem; }
+}
